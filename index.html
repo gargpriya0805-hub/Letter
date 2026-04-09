@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Special Letter</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #fceabb, #f8b500);
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+}
+
+/* Button */
+.btn {
+    background: #ff4d6d;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.1);
+}
+
+/* Letter Box */
+.letter {
+    display: none;
+    position: absolute;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    text-align: center;
+    width: 350px;
+    max-width: 90%
+}
+
+/* Typing text */
+#text {
+    border-right: 2px solid black;
+    white-space: normal;   /* FIX */
+    overflow: visible;     /* FIX */
+}
+
+/* Confetti */
+.confetti {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    top: -10px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<button class="btn" onclick="openLetter()">💌 Open My Letter</button>
+
+<div class="letter" id="letter">
+    <h2>Dear You ❤️</h2>
+    <p id="text"></p>
+</div>
+
+<!-- Background Music -->
+<audio id="music" loop>
+    <source src="Raabta.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const message = " 😊 Yeh letter sirf tumhare liye hai 💖I love U always Vidit💖💖💖";
+
+function openLetter() {
+    document.getElementById("letter").style.display = "block";
+    document.getElementById("music").play();
+
+    typeText();
+
+    // Confetti
+    for(let i = 0; i < 40; i++) {
+        let c = document.createElement("div");
+        c.classList.add("confetti");
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.background = `hsl(${Math.random()*360},100%,50%)`;
+        c.style.animationDuration = (Math.random() * 2 + 2) + "s";
+        document.body.appendChild(c);
+    }
+}
+
+// Typing Effect
+let i = 0;
+function typeText() {
+    if (i < message.length) {
+        document.getElementById("text").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeText, 50);
+    }
+}
+</script>
+
+</body>
+</html>
